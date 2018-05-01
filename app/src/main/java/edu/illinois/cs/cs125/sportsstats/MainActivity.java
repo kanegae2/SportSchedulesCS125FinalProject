@@ -134,7 +134,7 @@ public final class MainActivity extends AppCompatActivity {
                                         String nameOfVenue = venue.get("name").getAsString();
                                         String nameOfCity = venue.get("city").getAsString();
                                         String nameOfState = venue.get("state").getAsString();
-                                        rest += "Venue Name: " + nameOfVenue + "\n" + " Location: " + nameOfCity + ", " + nameOfState +"\n";
+                                        rest += "Venue Name: " + nameOfVenue + "\n" + "Location: " + nameOfCity + ", " + nameOfState +"\n";
                                     }
                                     if (home != null) {
                                         String home1 = home.get("name").getAsString();
@@ -146,7 +146,7 @@ public final class MainActivity extends AppCompatActivity {
                                     }
                                     if (broadcast != null) {
                                         String network = broadcast.get("network").getAsString();
-                                        rest += "Broadcast Network: " + network + "\n";
+                                        rest += "Broadcast Network: " + network + "\n" + "\n";
                                     }
                                 }
                             }
@@ -209,7 +209,7 @@ public final class MainActivity extends AppCompatActivity {
                                         String nameOfVenue = venue.get("name").getAsString();
                                         String nameOfCity = venue.get("city").getAsString();
                                         String nameOfState = venue.get("state").getAsString();
-                                        rest += "Venue Name: " + nameOfVenue + "\n" + " Location: " + nameOfCity + ", " + nameOfState +"\n";
+                                        rest += "Venue Name: " + nameOfVenue + "\n" + "Location: " + nameOfCity + ", " + nameOfState +"\n";
                                     }
                                     if (home != null) {
                                         String home1 = home.get("name").getAsString();
@@ -221,7 +221,7 @@ public final class MainActivity extends AppCompatActivity {
                                     }
                                     if (broadcast != null) {
                                         String network = broadcast.get("network").getAsString();
-                                        rest += "Broadcast Network: " + network + "\n";
+                                        rest += "Broadcast Network: " + network + "\n" + "\n";
                                     }
                                 }
                             }
@@ -286,7 +286,7 @@ public final class MainActivity extends AppCompatActivity {
                                         String nameOfVenue = venue.get("name").getAsString();
                                         String nameOfCity = venue.get("city").getAsString();
                                         String nameOfState = venue.get("state").getAsString();
-                                        rest += "Venue Name: " + nameOfVenue + "\n" + " Location: " + nameOfCity + ", " + nameOfState +"\n";
+                                        rest += "Venue Name: " + nameOfVenue + "\n" + "Location: " + nameOfCity + ", " + nameOfState +"\n";
                                     }
                                     if (home != null) {
                                         String home1 = home.get("name").getAsString();
@@ -298,7 +298,7 @@ public final class MainActivity extends AppCompatActivity {
                                     }
                                     if (broadcast != null) {
                                         String network = broadcast.get("network").getAsString();
-                                        rest += "Broadcast Network: " + network + "\n";
+                                        rest += "Broadcast Network: " + network + "\n" + "\n";
                                     }
                                 }
                             }

@@ -61,17 +61,19 @@
                     android:layout_height="46dp"
                     android:layout_weight="1"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:fontFamily="serif-monospace" />
 
                 <TextView
                     android:id="@+id/responseView"
                     android:layout_width="match_parent"
-                    android:layout_height="435dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/white"
-                    android:visibility="visible"
+                    android:textSize="18sp"
 
-                    app:fontFamily="sans-serif" />
+                    android:visibility="visible"
+                    app:fontFamily="serif-monospace" />
             </LinearLayout>
         </ScrollView>
 
