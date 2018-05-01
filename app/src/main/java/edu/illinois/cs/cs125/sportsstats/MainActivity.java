@@ -25,6 +25,7 @@ import java.util.Locale;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -60,6 +61,17 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Button getScheduleBaseball = findViewById(R.id.MLBsearch);
+        getScheduleBaseball.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Log.d(TAG, "Get schedule when button is clicked");
+                startAPICall2();
+            }
+        });
+
+
+
     }
 
     /**
@@ -71,10 +83,11 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Make a call to the weather API.
+     * Make a call to the sport API.
      */
     void startAPICall() {
         final TextView textView = findViewById(R.id.responseView);
+        final TextView LeagueView = findViewById(R.id.League);
         try {
             String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
             String year = date.substring(0,4);
@@ -91,14 +104,41 @@ public final class MainActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
-                            String stringObject = response.toString();
                             JsonParser parser = new JsonParser();
                             JsonObject result = parser.parse(stringObject).getAsJsonObject();
                             JsonObject league = result.get("league").getAsJsonObject();
-                            String name = league.get("name").getAsString();
+                            String name = "League: " + league.get("name").getAsString();
+                            JsonArray games = result.get("game").getAsJsonArray();
+                            String rest = "";
+                            for (int i = 0; i < games.size(); i++) {
+                                JsonObject game = games.get(i).getAsJsonObject();
+                                if (game != null && game.get("title") != null) {
+                                    String titleOfGame = game.get("title").getAsString();
+                                    rest += "Game Title:" + titleOfGame + "\n";
+                                    JsonObject venue = game.get("venue").getAsJsonObject();
+                                    JsonObject home = game.get("home").getAsJsonObject();
+                                    JsonObject away = game.get("away").getAsJsonObject();
+                                    if (venue != null) {
+                                        String nameOfVenue = venue.get("name").getAsString();
+                                        String nameOfCity = venue.get("city").getAsString();
+                                        String nameOfState = venue.get("state").getAsString();
+                                        rest += "Venue Name: " + nameOfVenue + "\n" + " Location: " + nameOfCity + ", " + nameOfState +"\n";
+                                    }
+                                    if (home != null) {
+                                        String home1 = home.get("name").getAsString();
+                                        rest += "Home Team: " + home1 + "\n";
+                                    }
+                                    if (away != null) {
+                                        String away1 = away.get("name").getAsString();
+                                        rest += "Away Team: " + away1 + "\n";
+                                    }
+                                }
+                            }
+
                             try {
                                 Log.d(TAG, response.toString(3));
-                                textView.setText("League: " + name);
+                                textView.setText(rest);
+                                LeagueView.setText(name);
                             } catch (JSONException ignored) { }
                         }
                     }, new Response.ErrorListener() {
@@ -112,4 +152,72 @@ public final class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    void startAPICall2() {
+        final TextView textView = findViewById(R.id.responseView);
+        final TextView LeagueView = findViewById(R.id.League);
+        try {
+            String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+            String year = date.substring(0,4);
+            String month = date.substring(5,7);
+            String day = date.substring(8);
+            Log.d(TAG, year);
+            Log.d(TAG, month);
+            Log.d(TAG, day);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    "https://api.sportradar.us/mlb/trial/v6.5/en/games/" + year + "/" + month + "/" + day + "/schedule.json?api_key=cpsttcdjq8xuhx3w65x4cvsj",
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(final JSONObject response) {
+                            JsonParser parser = new JsonParser();
+                            JsonObject result = parser.parse(stringObject).getAsJsonObject();
+                            JsonObject league = result.get("league").getAsJsonObject();
+                            String name = "League: " + league.get("alias").getAsString();
+                            JsonArray games = result.get("game").getAsJsonArray();
+                            String rest = "";
+                            for (int i = 0; i < games.size(); i++) {
+                                JsonObject game = games.get(i).getAsJsonObject();
+                                if (game != null && game.get("venue") != null) {
+                                    JsonObject venue = game.get("venue").getAsJsonObject();
+                                    JsonObject home = game.get("home").getAsJsonObject();
+                                    JsonObject away = game.get("away").getAsJsonObject();
+                                    if (venue != null) {
+                                        String nameOfVenue = venue.get("name").getAsString();
+                                        String nameOfCity = venue.get("city").getAsString();
+                                        String nameOfState = venue.get("state").getAsString();
+                                        rest += "Venue Name: " + nameOfVenue + "\n" + " Location: " + nameOfCity + ", " + nameOfState +"\n";
+                                    }
+                                    if (home != null) {
+                                        String home1 = home.get("name").getAsString();
+                                        rest += "Home Team: " + home1 + "\n";
+                                    }
+                                    if (away != null) {
+                                        String away1 = away.get("name").getAsString();
+                                        rest += "Away Team: " + away1 + "\n";
+                                    }
+                                }
+                            }
+
+                            try {
+                                Log.d(TAG, response.toString(3));
+                                textView.setText(rest);
+                                LeagueView.setText(name);
+                            } catch (JSONException ignored) { }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(final VolleyError error) {
+                    Log.e(TAG, error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

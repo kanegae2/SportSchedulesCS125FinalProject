@@ -32,20 +32,41 @@
             android:layout_height="wrap_content"
             android:text="BasketBall Game Schedule" />
 
+        <Button
+            android:id="@+id/MLBsearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Baseball Game Schedule" />
+
+        <Button
+            android:id="@+id/NHLsearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hockey Game Schedule" />
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="139dp"
+            android:layout_height="wrap_content"
             android:scrollbarStyle="insideOverlay">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/League"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:layout_weight="1"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/responseView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="435dp"
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:visibility="visible"
