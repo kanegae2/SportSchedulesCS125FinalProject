@@ -44,8 +44,8 @@ public final class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        final Button getScheduleBasketball = findViewById(R.id.searchButton);
-        getScheduleBasketball.setOnClickListener(new View.OnClickListener() {
+        final Button getSchedule = findViewById(R.id.searchButton);
+        getSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 Log.d(TAG, "Get stats when button is clicked");
@@ -85,7 +85,7 @@ public final class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(final JSONObject response) {
                             try {
-                                Log.d(TAG, response.toString(2));
+                                Log.d(TAG, response.toString(3));
                                 textView.setText(response.toString());
                             } catch (JSONException ignored) { }
                         }
