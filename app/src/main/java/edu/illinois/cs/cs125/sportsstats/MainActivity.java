@@ -16,11 +16,18 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 public final class MainActivity extends AppCompatActivity {
@@ -84,9 +91,14 @@ public final class MainActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
+                            String stringObject = response.toString();
+                            JsonParser parser = new JsonParser();
+                            JsonObject result = parser.parse(stringObject).getAsJsonObject();
+                            JsonObject league = result.get("league").getAsJsonObject();
+                            String name = league.get("name").getAsString();
                             try {
                                 Log.d(TAG, response.toString(3));
-                                textView.setText(response.toString());
+                                textView.setText("League: " + name);
                             } catch (JSONException ignored) { }
                         }
                     }, new Response.ErrorListener() {
